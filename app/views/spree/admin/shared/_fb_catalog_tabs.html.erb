@@ -1,0 +1,15 @@
+<% admin_breadcrumb(link_to Spree.t(:fb_catalog), spree.admin_fb_catalogs_path) %>
+<% admin_breadcrumb(link_to @fb_catalog.name, spree.admin_fb_catalog_path(@fb_catalog)) %>
+
+<% content_for :tabs do %>
+  <nav>
+    <ul class="tabs" data-hook="admin_fb_catalog_tabs">
+      <%= content_tag :li, :class => ('active' if current == 'Facebook Catalog') do %>
+        <%= link_to Spree.t(:fb_catalog), spree.edit_admin_fb_catalog_url(@fb_catalog) %>
+      <% end if can?(:admin, Spree::FbCatalog) %>
+      <%= content_tag :li, :class => ('active' if current == 'Facebook Catalog Exports') do %>
+        <%= link_to Spree.t(:fb_exports), spree.admin_fb_catalog_exports_url(@fb_catalog) %>
+      <% end if can?(:admin, Spree::FbExport) %>
+    </ul>
+  </nav>
+<% end %>

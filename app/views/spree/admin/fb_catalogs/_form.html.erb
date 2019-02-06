@@ -1,0 +1,30 @@
+<div class="container">
+  <div data-hook="admin_fb_settings_form_fields" class="row">
+      <div class="col-md-12">
+        <%= f.field_container :name do %>
+          <%= f.label :name %>
+          <%= f.text_field :name, class: 'fullwidth' %>
+        <% end %>
+      </div>
+      <div class="col-md-12">
+        <%= label_tag :taxon_ids, Spree.t(:taxons) %><br />
+        <%= f.hidden_field :taxon_ids, value: @fb_catalog.taxon_ids.join(','), class: 'taxon_picker fullwidth' %>
+      </div>
+      <% if @promotions.present? %>
+        <div class="col-md-12">
+          <%= label_tag :promotion_ids, Spree.t(:promotions) %><br />
+          <%= f.select :promotion_ids, @promotions.map { |p| [p.name, p.id] }, {}, {:multiple => true, class: 'js-example-basic-multiple fullwidth'} %>
+        </div>
+      <% end %>
+      <%= f.hidden_field :created_by, value: try_spree_current_user.email %>
+  </div>
+</div>
+
+<script>
+  $('.taxon_picker').taxonAutocomplete();
+  $(document).ready(function() {
+    $('.js-example-basic-multiple').select2({
+      placeholder: "<%= @promotions.map {|p| { id: p.id, text: p.name } if @fb_catalog.promotion_ids.present? && @fb_catalog.promotion_ids.include?(p.id) }.first %>"
+    });
+});
+</script>

@@ -1,0 +1,20 @@
+<% content_for :page_title do %>
+  <%= Spree.t(:fb_catalog) %>
+<% end %>
+<% content_for :page_actions do %>
+	<li>
+		<%= link_to Spree.t(:back_to_fb_catalogs_list), spree.admin_fb_catalogs_path, class: 'button' %>
+	</li>
+<% end %>
+
+<%= render :partial => 'spree/shared/error_messages', :locals => { :target => @fb_catalog } %>
+
+<%= form_for [:admin , @fb_catalog], :html => { :multipart => true } do |f| %>
+  <fieldset class="no-border-top">
+    <%= render 'form', f: f %>
+    <div class="form-buttons filter-actions actions" data-hook="buttons">
+	  <%= button Spree.t('actions.create') %>
+	  <%= link_to Spree.t('actions.cancel'), collection_url, :class => 'button' %>
+	</div>
+  </fieldset>
+<% end %>

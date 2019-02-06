@@ -1,0 +1,58 @@
+<% content_for :page_title do %>
+  <%= Spree.t(:fb_catalog) %>
+<% end %>
+
+<% content_for :page_actions do %>
+    <% if @fb_setting.present? %>
+      <li id="new_fb_catalog_link">
+       <%= link_to Spree.t('actions.new'), new_admin_fb_catalog_path, { :id => 'admin_new_fb_catalog' , class: 'button'} %>
+      </li>
+      <li>
+        <%= link_to Spree.t(:configuration), edit_admin_fb_settings_path, class: 'button' %>
+      </li>
+    <% else %>
+      <li>
+        <%= link_to Spree.t(:configuration), new_admin_fb_settings_path, class: 'button' %>
+      </li>
+    <% end %>
+<% end %>
+
+<div id="new_fb_catalog_wrapper" data-hook></div>
+
+<div id="fb_catalogs">
+ <% if @collection.present? %>
+  <table class="table">
+    <colgroup>
+      <col style="width: 30%">
+      <col style="width: 30%">
+      <col style="width: 30%">
+      <col style="width: 10%">
+    </colgroup>
+    <thead>
+    <tr>
+      <th><%= Spree.t(:name) %></th>
+      <th><%= Spree.t(:catalog_id) %></th>
+      <th><%= Spree.t(:created_by) %></th>
+      <th data-hook="admin_fb_catalog_index_header_actions" class="actions"></th>      
+    </tr>
+    </thead>
+    <tbody>
+    <% @collection.each do |catalog| %>
+      <tr class="<%= cycle('odd', 'even') %>" id="">
+        <td><%= catalog.name %></td>
+        <td><%= catalog.catalog_id %></td>
+        <td><%= catalog.created_by %></td>
+        <td class="actions" data-hook="admin_fb_catalog_index_row_actions">
+          <%= link_to_edit catalog, no_text: true if can?(:edit, catalog) %>
+          <%= link_to_delete catalog, no_text: true if can?(:delete, catalog) %>
+        </td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <div class="alpha twelve columns no-objects-found">
+    <%= Spree.t(:no_resource_found, resource: Spree.t(:fb_catalog)) %>
+  </div>
+<% end %>
+</div>

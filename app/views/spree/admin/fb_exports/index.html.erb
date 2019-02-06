@@ -1,0 +1,31 @@
+<%= render 'spree/admin/shared/fb_catalog_tabs', current: 'Facebook Catalog Exports' %>
+<% admin_breadcrumb(Spree.t(:fb_exports)) %>
+
+<% content_for :page_actions do %>
+  <li>
+    <%= button_to admin_send_catalog_path, method: :put, data: { confirm: Spree.t(:sure_to_send_catalog) }, remote: true do %>
+          <%= Spree.t(:send_catalog) %>
+          <%= hidden_field_tag :user, try_spree_current_user.email %>
+          <%= hidden_field_tag :fb_catalog_id, @fb_catalog.slug %>
+        <% end %>
+  </li>
+  <% if @fb_exports.present? %>
+      <li>
+        <%= button_to admin_update_catalog_status_path, method: :post, data: { confirm: Spree.t(:sure_to_update_status) }, remote: true do %>
+          <%= Spree.t(:update_status) %>
+          <%= hidden_field_tag :fb_catalog_id, @fb_catalog.slug %>
+        <% end %>
+      </li>
+  <% end %>
+  <li>
+    <%= link_to Spree.t(:back_to_fb_catalogs_list), spree.admin_fb_catalogs_path, class: 'button' %>
+  </li>
+<% end %>
+
+<div id="new_fb_catalog_wrapper" data-hook></div>
+
+<div id="fb_exports">
+  <%= render partial: 'export_tables' %>
+</div>
+
+<%= paginate @fb_exports, theme: "solidus_admin" %>

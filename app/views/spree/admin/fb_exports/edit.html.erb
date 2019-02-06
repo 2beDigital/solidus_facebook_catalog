@@ -1,0 +1,42 @@
+<% content_for :page_title do %>
+  <%= Spree.t(:products_exported) %>
+<% end %>
+
+<% content_for :page_actions do %>
+  <li>
+    <%= link_to Spree.t(:back_to_fb_exports_list), spree.admin_fb_catalog_exports_url, class: 'button' %>
+  </li>
+<% end %>
+
+<% if @products.any? %>
+  <table class="index" id="listing_products">
+    <colgroup>
+       <col style="width: 15%;">
+       <col style="width: 10%;">
+       <col style="width: 48%;">
+       <col style="width: 10%;">
+       <col style="width: 17%;">
+    </colgroup>
+    <thead>
+      <tr data-hook="admin_products_index_headers">
+        <th><%= Spree::Variant.human_attribute_name(:sku) %></th>
+        <th colspan="2"><%= Spree::Product.human_attribute_name(:name) %></th>
+        <th><%= Spree::Product.human_attribute_name(:price) %></th>
+        <th data-hook="admin_products_index_header_actions" class="actions"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @products.each do |product| %>
+          <tr <%== "style='color: red;'" if product.deleted? %> id="<%= spree_dom_id product %>" data-hook="admin_products_index_rows" class="<%= cycle('odd', 'even') %>">
+            <td class="align-center"><%= product.sku %></td>
+            <td class="align-center"><%= image_tag product.display_image.attachment(:mini) %></td>
+            <td><%= link_to product.try(:name), edit_admin_product_path(product) %></td>
+            <td class="align-center"><%= product.display_price.to_html %></td>
+          </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+<% end %>
+
+<%= paginate @products, theme: "solidus_admin" %>

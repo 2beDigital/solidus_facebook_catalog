@@ -1,0 +1,46 @@
+<div id='facebook_errors'>
+<%= render :partial => 'spree/shared/error_messages', :locals => { :target => @fb_catalog } %>
+</div>
+<% if @fb_exports.present? %>
+  <table class="table">
+    <colgroup>
+      <col style="width: 20%">
+      <col style="width: 10%">
+      <col style="width: 10%">
+      <col style="width: 10%">
+      <col style="width: 10%">
+      <col style="width: 20%">
+      <col style="width: 10%">
+    </colgroup>
+    <thead>
+    <tr>
+      <th><%= Spree.t(:date_exported) %></th>
+      <th><%= Spree.t(:created_by) %></th>
+      <th><%= Spree.t(:products_exported) %></th>
+      <th><%= Spree.t(:status) %></th>
+      <th><%= Spree.t(:errors_total_count) %></th>
+      <th><%= Spree.t(:products_exported_errors) %></th>
+    </tr>
+    </thead>
+    <tbody>
+      <% @fb_exports.each do |export| %>
+      <tr class="<%= cycle('odd', 'even') %>" id="">
+        <td><%= export.created_at.strftime('%c') %></td>
+        <td><%= export.created_by %></td>
+        <td><%= export.products.count %></td>
+        <td><%= Spree.t("batch_status.#{export.batch_status[:status]}") %></td>
+        <td><%= export.batch_status[:errors_total_count] %></td>
+        <td><%= export.batch_status[:errors].blank? ? Spree.t(:without_errors) : export.batch_status[:errors] %></td>
+        <td class="actions" data-hook="admin_products_index_row_actions">
+          <%= link_to '', edit_admin_fb_catalog_export_url(@fb_catalog, export), class: 'fa fa-eye icon_link with-tip no-text' %>
+        </td>
+      </tr>
+    <% end %>
+    
+    </tbody>
+  </table>
+<% else %>
+  <div class="alpha twelve columns no-objects-found">
+    <%= Spree.t(:no_resource_found, resource: Spree.t(:fb_exports)) %>
+  </div>
+<% end %>

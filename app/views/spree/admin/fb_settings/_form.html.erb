@@ -1,0 +1,22 @@
+<div class="container">
+  <div data-hook="admin_fb_settings_form_fields">
+    <fieldset data-hook="fb_settings" class=" no-border-bottom">
+      <legend align="center"><%= Spree.t(:general_settings) %></legend>
+      <div class="row">
+        <div class="col-md-12">
+          <%= f.field_container :access_token do %>
+            <%= f.label :access_token %>
+            <%= f.text_field :access_token, class: 'fullwidth' %>
+          <% end %>
+        </div>
+        <div class="col-md-12">
+          <%= f.field_container :business_id do %>
+            <%= f.label :business_id %>
+            <%= f.text_field :business_id, class: 'fullwidth' %>
+          <% end %>
+        </div>
+      </div>
+    </fieldset>
+    <div class="clear"></div>
+  </div>
+</div>

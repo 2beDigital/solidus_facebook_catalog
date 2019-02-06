@@ -1,0 +1,32 @@
+es:
+  spree:
+    fb_catalog: Facebook catálogo
+    fb_exports: Exportaciones
+    catalog_id: Identificador del catalogo
+    name: Nombre
+    date_exported: Exportado en
+    products_exported: Productos exportados
+    products_exported_errors: Errores en la exportación
+    error_creating_catalog: No se pudo crear el catalogo. Fallo en la conexión con la API de facebook
+    error_updating_catalog: No se pudo actualizar el catalogo. Fallo en la conexión con la API de facebook
+    error_deleting_catalog: No se pudo eliminar el catalogo. Fallo en la conexión con la API de facebook
+    error_sending_catalog: No se pudo realizar la exportación del catálogo, es posible que deba actualizar en token de acceso.
+    show_actions: Acciones
+    send_catalog: Realizar exportación del catálogo
+    sure_to_send_catalog: ¿Estás seguro de enviar el catálogo a facebook ahora?
+    sure_to_update_status: ¿Estás seguro de actualizar el estado del catálogo?
+    errors_total_count: Total Errores
+    fb_access_token_error: No fue posible actualizar el token de acceso, por favor revise la configuración
+    show_products: Ver productos
+    without_errors: Sin errores
+    fb_settings: Configuración de Facebook API
+    back_to_fb_catalogs_list: Volver a la lista de catálogos
+    back_to_fb_exports_list: Volver a la lista de exportaciones
+    update_status: Actualizar estado de las exportaciones
+    successfully_sending: "%{resource} ha sido enviado correctamente."
+    batch_status:
+      dispatched: Enviado
+      scheduled: Programado
+      started: En proceso
+      finished: Terminado
+      incomplete: No se pudo enviar

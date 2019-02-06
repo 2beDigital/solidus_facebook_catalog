@@ -1,0 +1,12 @@
+<table>
+  <tr>
+    <td>
+      <p> Hello, </p><br />
+      <p>This is a quick email to let you know the result of facebook catalogs exports.</p>
+      <p>Check in your account of facebook that the products are created or updated.</p>
+      <% @exports.each do |export| %>
+        <p>-> <%= export %> </p>
+      <% end %>
+    </td>
+  </tr>
+</table>
