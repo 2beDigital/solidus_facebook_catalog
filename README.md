@@ -25,6 +25,7 @@ And then execute:
     $ bundle exec rails g solidus_facebook_catalog:install
 
 Run migrations: 
+
 	$ bundle exec rake db:migrate
 
 
