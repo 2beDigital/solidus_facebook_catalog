@@ -1,4 +1,4 @@
-namespace :update_facebook_catalogs do
+ <namespace :update_facebook_catalogs do
   desc "Update facebook catalogs"
 	task update: :environment do
 		# puts "Start exports"
@@ -16,7 +16,7 @@ namespace :update_facebook_catalogs do
 					catalogs_export << "A catalog #{catalog.name} could not be exported - here is the information we have:\n #{export.inspect} #{export.errors.full_messages.join(', ')}"
 				end
 			end
-			Spree::UserMailer.fb_catalog_export_results('noel@2bedigital.com', catalogs_export).deliver_now
+			Spree::UserMailer.fb_catalog_export_results(ENV['fb_send_email_to_user'], catalogs_export).deliver_now
 		end
 	end
 end
