@@ -30,3 +30,6 @@ es:
       started: En proceso
       finished: Terminado
       incomplete: No se pudo enviar
+    admin:
+      tab:
+        fb_catalog: Facebook Catalogo
