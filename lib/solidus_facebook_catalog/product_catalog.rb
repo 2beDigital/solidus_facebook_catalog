@@ -84,25 +84,27 @@ module SolidusFacebookCatalog
 				products = Spree::Product.all
 			end
 			products.uniq.each do |product|
-				ids << product.id
-				data << {
-						method:  'UPDATE',
-					    retailer_id: product.sku,
-					    data:  {
-							availability: (product.master.can_supply? || product.variants.any?{|v| v.can_supply? == true}) ? 'in stock' : 'out of stock',
-							category:  product.taxon_ids.map { |x| Spree::Taxon.find_by(id: x).name }.join(' '),
-							product_type: product.taxon_ids.map { |x| Spree::Taxon.find_by(id: x).name }.join(' '),
-							currency:  Spree::Store.default.default_currency.present? ? Spree::Store.default.default_currency : 'EUR',
-							description:  ActionView::Base.full_sanitizer.sanitize(product.description.present? ? product.description : ''),
-							image_url:  product.images.present? ? product.images.first.attachment.url(:original) : '',
-							name:  product.name,
-							price:  (product.price * 100).to_i,
-							sale_price: defined?(Sales) ? get_sales_price(product) : nil,
-							url:  "https://#{Spree::Store.default.url.split('/').last}/products/#{product.slug}",
-							condition: "new",
-							gtin: generate_EAN(product.id.to_s)
-				    	}	    	
-					}
+				if product.images.present?
+					ids << product.id
+					data << {
+							method:  'UPDATE',
+						    retailer_id: product.sku,
+						    data:  {
+								availability: (product.master.can_supply? || product.variants.any?{|v| v.can_supply? == true}) ? 'in stock' : 'out of stock',
+								category:  product.taxon_ids.map { |x| Spree::Taxon.find_by(id: x).name }.join(' '),
+								product_type: product.taxon_ids.map { |x| Spree::Taxon.find_by(id: x).name }.join(' '),
+								currency:  Spree::Store.default.default_currency.present? ? Spree::Store.default.default_currency : 'EUR',
+								description:  ActionView::Base.full_sanitizer.sanitize(product.description.present? ? product.description : ''),
+								image_url:  product.images.first.attachment.url(:original),
+								name:  product.name,
+								price:  (product.price * 100).to_i,
+								sale_price: defined?(Sales) ? get_sales_price(product) : nil,
+								url:  "https://#{Spree::Store.default.url.split('/').last}/products/#{product.slug}",
+								condition: "new",
+								gtin: generate_EAN(product.id.to_s)
+					    	}	    	
+						}
+				end
 			end
 			return [data, ids]
 		end
