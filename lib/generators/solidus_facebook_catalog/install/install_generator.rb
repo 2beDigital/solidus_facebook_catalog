@@ -1,19 +1,14 @@
 module SolidusFacebookCatalog
   module Generators
     class InstallGenerator < Rails::Generators::Base
-
       argument :file_name, :type => :string, :desc => 'rails app_path', :default => '.'
       source_root File.expand_path('../../templates', __FILE__)
+       class_option :auto_run_migrations, :type => :boolean, :default => false
 
       def copy_initializer_file
         template 'solidus_facebook_catalog_settings.rb', "#{file_name}/config/initializers/solidus_facebook_catalog_settings.rb"
       end
 
-      source_root File.expand_path('../../templates', __FILE__)
-      class_option :auto_run_migrations, :type => :boolean, :default => false
-      def copy_product_duplicator_files
-        # copy_file "./facebook_catalog.rb", "lib/facebook_catalog.rb"
-      end
       def add_migrations
         run 'bundle exec rake railties:install:migrations FROM=solidus_facebook_catalog'
       end

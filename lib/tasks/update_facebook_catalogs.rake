@@ -1,4 +1,4 @@
- <namespace :update_facebook_catalogs do
+namespace :update_facebook_catalogs do
   desc "Update facebook catalogs"
 	task update: :environment do
 		# puts "Start exports"
