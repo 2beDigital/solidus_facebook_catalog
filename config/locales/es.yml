@@ -20,10 +20,13 @@ es:
     show_products: Ver productos
     without_errors: Sin errores
     fb_settings: Configuración de Facebook API
-    back_to_fb_catalogs_list: Volver a la lista de catálogos
+    back_to_fb_catalogs_list: Lista de catálogos
+    back_to_fb_settings_list: Volver 
     back_to_fb_exports_list: Volver a la lista de exportaciones
     update_status: Actualizar estado de las exportaciones
     successfully_sending: "%{resource} ha sido enviado correctamente."
+    access_token: Token de acceso
+    business_id: Identificador del negocio
     batch_status:
       dispatched: Enviado
       scheduled: Programado

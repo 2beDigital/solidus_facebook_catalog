@@ -1,0 +1,49 @@
+<% content_for :page_title do %>
+  <%= Spree.t(:fb_settings) %>
+<% end %>
+
+<% content_for :page_actions do %>
+	<li>
+		<%= link_to Spree.t(:back_to_fb_catalogs_list), spree.admin_fb_catalogs_path, :icon => 'icon-arrow-left', class: 'button' %>
+	</li>
+<% end %>
+
+<% if @fb_settings.present? %>
+  <table class="index">
+    <colgroup>
+      <col style="width: 40%">
+      <col style="width: 25%">
+      <col style="width: 25%">
+      <col style="width: 10%">
+    </colgroup>
+    <thead>
+      <tr data-hook="admin_rgpds_index_headers">
+        <th><%= Spree.t(:access_token) %></th>
+        <th><%= Spree.t(:business_id) %></th>
+        <th><%= Spree.t(:store) %></th>
+        <th class="actions"></th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr id="<%= spree_dom_id @fb_settings %>" data-hook="admifb_settings_index_rows" class="<%= cycle('odd', 'even')%>">
+          <td class="align-left"><%= truncate(@fb_settings.access_token, length: 50) %></td>
+          <td class="align-left"><%= @fb_settings.business_id %></td>
+          <td class="align-left"><%= @fb_settings.store.name %></td>
+          <td class="actions">
+            <% if can?(:update, @fb_settings) %>
+              <%= link_to_edit @fb_settings, :no_text => true %>
+            <% end %>
+            <% if can?(:destroy, @fb_settings) %>
+              <%= link_to_delete @fb_settings, :no_text => true %>
+            <% end %>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+<% else %>
+  <div class="no-objects-found">
+    <%= render 'spree/admin/shared/no_objects_found',
+                 resource: Spree::FbSetting,
+                 new_resource_url: new_object_url %>
+  </div>
+<% end %>

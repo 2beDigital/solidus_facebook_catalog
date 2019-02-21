@@ -8,9 +8,9 @@
 	</li>
 <% end %>
 
-<%= render :partial => 'spree/shared/error_messages', :locals => { :target => @object } %>
+<%= render :partial => 'spree/shared/error_messages', :locals => { :target => @fb_settings } %>
 
-<%= form_for [:admin , @object] do |f| %>
+<%= form_for [:admin , @fb_settings] do |f| %>
 
   <fieldset class="no-border-top">
 

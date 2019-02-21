@@ -38,13 +38,13 @@ module Spree
 				@fb_exports = @fb_catalog.fb_exports.order(created_at: :desc).page(params[:page]).per(20)
 			end
 			def refresh_token
-		        access_token = SolidusFacebookCatalog::Configure.refresh_access_token
-		        if !access_token.blank?
-		            FacebookAds.configure.access_token = access_token
-		        else
-		            failed_response(Spree.t(:fb_access_token_error))
-		        end
-		    end
+        access_token = SolidusFacebookCatalog::Configure.refresh_access_token
+        if !access_token.blank?
+            FacebookAds.configure.access_token = access_token
+        else
+            failed_response(Spree.t(:fb_access_token_error))
+        end
+	    end
 		end
 	end
 end

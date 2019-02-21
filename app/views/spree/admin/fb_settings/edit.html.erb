@@ -6,17 +6,16 @@
 	<li>
 		<%= link_to Spree.t(:back_to_fb_catalogs_list), spree.admin_fb_catalogs_path, :icon => 'icon-arrow-left', class: 'button' %>
 	</li>
+	<li>
+    <%= link_to Spree.t(:back_to_fb_settings_list), admin_fb_settings_path, class: 'button' %>
+  </li>
 <% end %>
 
-<%= render :partial => 'spree/shared/error_messages', :locals => { :target => @object } %>
+<%= render :partial => 'spree/shared/error_messages', :locals => { :target => @fb_settings } %>
 
-<%= form_for @object, url: admin_fb_settings_path, method: :put  do |f| %>
-   <fieldset class="no-border-top">
+<%= form_for [:admin,  @fb_settings] do |f| %>
+  <fieldset class="no-border-top">
     <%= render :partial => 'form', :locals => { :f => f } %>
-    <div class="clear"></div>
-    <div class="form-buttons filter-actions actions" data-hook="buttons">
-	  <%= button Spree.t('actions.update') %>
-	  <%= link_to Spree.t('actions.cancel'), collection_url, :class => 'button' %>
-	</div>
+    <%= render :partial => 'spree/admin/shared/edit_resource_links' %>
   </fieldset>
 <% end %>

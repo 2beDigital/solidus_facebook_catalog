@@ -16,6 +16,13 @@
           <%= f.select :promotion_ids, @promotions.map { |p| [p.name, p.id] }, {}, {:multiple => true, class: 'js-example-basic-multiple fullwidth'} %>
         </div>
       <% end %>
+      <div class="col-md-3">
+          <div data-hook="store_select" class="field">
+            <%= f.label Spree.t(:store) %>
+            <div class="clear"></div>
+            <%= collection_select(:fb_catalog, :store_id, Spree::Store.all, :id, :name, {}, {:class => 'select2 fullwidth'}) %>
+          </div>
+        </div>
       <%= f.hidden_field :created_by, value: try_spree_current_user.email %>
   </div>
 </div>

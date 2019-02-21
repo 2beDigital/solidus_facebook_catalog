@@ -4,7 +4,7 @@ module Spree
 		serialize :batch_status, Hash
 		serialize :products, Array
 		validates_presence_of :batch_status
-  		validates_presence_of :products
+  	validates_presence_of :products
 		default_scope { order "created_at desc" }
 
 		def send_products_catalog

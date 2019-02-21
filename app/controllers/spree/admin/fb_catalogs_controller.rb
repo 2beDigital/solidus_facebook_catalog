@@ -15,13 +15,13 @@ module Spree
 
 			def load_data
 				@fb_catalog = Spree::FbCatalog.friendly.find(params[:id])
-				@fb_setting = Spree::FbSetting.first
+				@fb_settings = Spree::FbSetting.find_by(store_id: current_store.id)
 			end
 			def load_settings
-				@fb_setting = Spree::FbSetting.first
+				@fb_settings = Spree::FbSetting.find_by(store_id: current_store.id)
 			end
 			def get_catalog_id
-				response = @fb_catalog.get_id(params[:fb_catalog][:name])
+				response = @fb_catalog.get_id(params[:fb_catalog][:name], current_store)
 				failed_response(Spree.t(:error_creating_catalog)) unless response
 			end
 			def update_options

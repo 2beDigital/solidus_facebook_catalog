@@ -2,34 +2,35 @@ module SolidusFacebookCatalog
 	class Error < StandardError; end;
 	class ProductCatalog
 		extend Sales if defined?(Sales)
-		def self.create_catalog(name)
-	    	business = FacebookAds::Business.get(Spree::FbSetting.first.business_id)
-	    	begin
+		def self.create_catalog(name,store)
+    	business = FacebookAds::Business.get(Spree::FbSetting.find_by(store_id: store.id).business_id)
+    	begin
 				catalog = business.owned_product_catalogs.create({name: name})
 				return catalog.id
 			rescue StandardError => e
 				return false
 			end
-	    end
+	  end
 
-	    def self.update_catalog(id, name)
-	    	product_catalog = FacebookAds::ProductCatalog.get(id)
+	  def self.update_catalog(id, name)
+	    product_catalog = FacebookAds::ProductCatalog.get(id)
 			product_catalog.name = name
 			begin
 				product_catalog.save
 			rescue StandardError => e
 				return false
 			end
-	    end
+    end
 
-	    def self.delete_catalog(id)
-	    	product_catalog = FacebookAds::ProductCatalog.get(id)
-	    	begin
+    def self.delete_catalog(id)
+    	product_catalog = FacebookAds::ProductCatalog.get(id)
+    	begin
 				product_catalog.delete
 			rescue StandardError => e
 				return false
 			end
-	    end
+	  end
+
 		def self.generate_EAN(number)
 			odd_sum = even_sum = 0
 			while number.length != 12 do
@@ -108,8 +109,9 @@ module SolidusFacebookCatalog
 			end
 			return [data, ids]
 		end
+
 		def self.send_batch(catalog)
-		    @product_catalog = FacebookAds::ProductCatalog.get(catalog.catalog_id)		
+		  @product_catalog = FacebookAds::ProductCatalog.get(catalog.catalog_id)		
 			data, ids = get_products(catalog)
 			begin
 				products = @product_catalog.batch.create({requests: data})
@@ -119,6 +121,7 @@ module SolidusFacebookCatalog
 			status = @product_catalog.check_batch_request_status(handle: products[:handles].first).to_set
 			return [status.first.to_hash, ids]
 		end
+
 		def self.check_batch_status(handle, catalog_id)
 			@product_catalog = FacebookAds::ProductCatalog.get(catalog_id)
 			@product_catalog.check_batch_request_status(handle: handle).to_set.first.to_hash

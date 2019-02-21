@@ -5,6 +5,6 @@ Spree::Core::Engine.routes.append do
     end
     put :send_catalog, to: 'fb_exports#send_catalog'
     post :update_catalog_status, to: 'fb_exports#update_catalog_status'
-    resource :fb_settings
+    resources :fb_settings
   end
 end
