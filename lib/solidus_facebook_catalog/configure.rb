@@ -1,9 +1,9 @@
 module SolidusFacebookCatalog
 	class Error < StandardError; end;
 	class Configure
-	    def self.refresh_access_token
+	    def self.refresh_access_token(store)
 	    	# Update access token 
-	    	@fb_settings = Spree::FbSetting.find_by(store_id: current_store.id)
+	    	@fb_settings = Spree::FbSetting.find_by(store_id: store.id)
 	    	app_id = ENV['FB_app_id']
 				app_secret = FacebookAds.configure.app_secret || ENV['FB_app_secret']
 				access_token = @fb_settings.present? ? @fb_settings.access_token : FacebookAds.configure.access_token
