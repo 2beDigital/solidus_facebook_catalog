@@ -54,7 +54,7 @@ module SolidusFacebookCatalog
 
 
 		def self.get_sales_price(product)
-			sales_price = is_promotionable?(product) ? product.price * ( 100 - percentage(product.id) ) / 100 : product.price
+			sales_price = is_promotionable?(product) ? product.price * ( 100 - percentage(product,product.id) ) / 100 : product.price
 			return (sales_price * 100).to_i
 		end
 
